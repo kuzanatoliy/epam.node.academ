@@ -1,15 +1,19 @@
 const fs = require('fs');
-const readline = require('readline');
+const readline = require('readline-sync');
 const arrayWorker = require('./lib/array-worker');
 const createMenu = require('simple-terminal-menu');
 
-let data = [1, -1, 2, -2, 3, -3, 4, -4];
+let data = [];
 let result;
 
 const menuItems = [
 	{ title: 'read array from file', action: () => {
-		fs.readFile('./data/arrays/test1.txt', 'utf8', (err, contents) => {
+		const fileName = readline.question('Input file name for reading: ');
+		fs.readFile(`./data/arrays/${ fileName }`, 'utf8', (err, contents) => {
 			result = "File read";
+			if(err) {
+				result = 'File not found';
+			}
 			data = contents.split(' ').map(item => parseInt(item));
 			mainMenu();
 		});
@@ -32,10 +36,10 @@ const menuItems = [
 	} },
 	{ title: 'save result in file', action: () => {
 		result = 'File seved';
-		fs.writeFile('./data/res-arrays/result.txt', result.toString(), error => {
+		const fileName = readline.question('Input file name for saving: ');
+		fs.writeFile(`./data/res-arrays/${ fileName }`, result.toString(), error => {
 			mainMenu();
 		});
-		mainMenu();
 	} }
 ]
 
@@ -44,7 +48,10 @@ const mainMenu = () => {
 	console.log('bla');
 	menu.writeLine("Choise action:");
 	menuItems.forEach(item => menu.add(item.title, item.action));
-	menu.add('exit', menu.close);
+	menu.add('exit', () => {
+		menu.close();
+		read.close();
+	});
 	if(result) {
 		menu.writeSeparator();
 		menu.writeLine('Result:', result.toString());
