@@ -4,7 +4,7 @@
   "description": "EPAM node academ",
   "main": "task1.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -23,5 +23,7 @@
   "directories": {
     "lib": "lib"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "jest": "^22.0.3"
+  }
 }
