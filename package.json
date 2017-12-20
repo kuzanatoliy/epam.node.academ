@@ -4,6 +4,7 @@
   "description": "EPAM node academ",
   "main": "task1.js",
   "scripts": {
+    "task1": "node task1.js",
     "test": "jest"
   },
   "repository": {
