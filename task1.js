@@ -45,12 +45,14 @@ const menuItems = [
 
 const mainMenu = () => {
 	const menu = createMenu({x:2, y:2});
-	console.log('bla');
 	menu.writeLine("Choise action:");
 	menuItems.forEach(item => menu.add(item.title, item.action));
 	menu.add('exit', () => {
 		menu.close();
+<<<<<<< HEAD
 		read.close();
+=======
+>>>>>>> 36cac6de106b250db3e63a107323ca5ddbfd3e8f
 	});
 	if(result) {
 		menu.writeSeparator();
