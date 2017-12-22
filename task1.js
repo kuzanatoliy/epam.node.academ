@@ -1,22 +1,25 @@
-const fs = require('fs');
 const readline = require('readline-sync');
 const arrayWorker = require('./lib/array-worker');
+const fileWorker = require('./lib/file-worker');
 const createMenu = require('simple-terminal-menu');
 
 let data = [];
 let result;
 
+const readAction = contents => {
+	result = contents ? 'Data read' : 'Data not found';
+	data = contents.split(' ').map(item => parseInt(item)) || [];
+	mainMenu();
+}
+
+const writeAction = () => {
+	mainMenu();
+}
+
 const menuItems = [
 	{ title: 'read array from file', action: () => {
 		const fileName = readline.question('Input file name for reading: ');
-		fs.readFile(`./data/arrays/${ fileName }`, 'utf8', (err, contents) => {
-			result = "File read";
-			if(err) {
-				result = 'File not found';
-			}
-			data = contents.split(' ').map(item => parseInt(item));
-			mainMenu();
-		});
+		fileWorker.readFile(`./data/arrays/${ fileName }`, readAction);
 	} },
 	{ title: 'find max element in array', action: () => {
 		result = arrayWorker.getMaxOfArray(data);
@@ -34,12 +37,18 @@ const menuItems = [
 		result = arrayWorker.getNegativeItems(data);
 		mainMenu();
 	} },
+	{ title: 'get ascending array', action: () => {
+		result = arrayWorker.getAscendingArray(data);
+		mainMenu();
+	} },
+	{ title: 'get descending array', action: () => {
+		result = arrayWorker.getDescendingArray(data);
+		mainMenu();
+	} },
 	{ title: 'save result in file', action: () => {
 		result = 'File seved';
 		const fileName = readline.question('Input file name for saving: ');
-		fs.writeFile(`./data/res-arrays/${ fileName }`, result.toString(), error => {
-			mainMenu();
-		});
+		fileWorker.writeFile(`./data/res-arrays/${ fileName }`, result.toString(), writeAction);
 	} }
 ]
 
@@ -49,10 +58,6 @@ const mainMenu = () => {
 	menuItems.forEach(item => menu.add(item.title, item.action));
 	menu.add('exit', () => {
 		menu.close();
-<<<<<<< HEAD
-		read.close();
-=======
->>>>>>> 36cac6de106b250db3e63a107323ca5ddbfd3e8f
 	});
 	if(result) {
 		menu.writeSeparator();
