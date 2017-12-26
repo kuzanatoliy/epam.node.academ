@@ -4,7 +4,9 @@
   "description": "EPAM node academ",
   "main": "task1.js",
   "scripts": {
-    "eslint": ".\\node_modules\\.bin\\eslint --init",
+    "task2": "node task2.js",
+    "eslint-fix": ".\\node_modules\\.bin\\eslint task2.server.js task2.client.js --fix",
+    "eslint": ".\\node_modules\\.bin\\eslint task2.server.js task2.client.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,7 +22,8 @@
   "dependencies": {
     "colors": "^1.1.2",
     "mocha": "^4.0.1",
-    "simple-terminal-menu": "^1.1.3"
+    "simple-terminal-menu": "^1.1.3",
+    "winston": "^2.4.0"
   },
   "directories": {
     "lib": "lib"
