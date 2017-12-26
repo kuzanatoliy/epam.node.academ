@@ -1,38 +1,33 @@
 const net = require('net');
-const winston = require('winston');
 
-const clients = {};
+const listeners = require('./lib/listeners');
 
-const server = net.createServer((socket) => {
+const server = net.createServer(socket => {
   let clientName;
 
   socket.on('error', err => {
-    clients[clientName].destroy();
-    delete clients[clientName];
-    winston.info(`${ clientName } closed`);
+    if (err) {
+      listeners.remove(clientName);
+    }
   }).once('data', data => {
     clientName = data.toString();
-    clients[clientName] = socket;
+    listeners.add(clientName, socket);
     socket.on('data', data => {
-      winston.info(`${ clientName } send message`);
-      const message = data.toString();
-      for(let index in clients) {
-        clients[index].write(`${ clientName }: ${ data }`);
-      }
-    })
+      listeners.send(clientName, data);
+    });
   }).on('end', () => {
-    console.log('end');
+    listeners.remove(clientName);
   });
-}).on('error', (err) => {
+}).on('error', err => {
   throw err;
-}).on('close', (data) => {
-  winston.info('Close server');
-})
+}).on('close', () => {
+  console.log('Close server');
+});
 
 server.listen({
   host: 'localhost',
   port: 3080,
   exlusive: true
 }, () => {
-  winston.info('Open server on', server.address());
+  console.log('Open server on', server.address());
 });
