@@ -13,7 +13,7 @@ const server = net.createServer(socket => {
     clientName = data.toString();
     listeners.add(clientName, socket);
     socket.on('data', data => {
-      listeners.send(clientName, data);
+      listeners.send(clientName, message);
     });
   }).on('end', () => {
     listeners.remove(clientName);

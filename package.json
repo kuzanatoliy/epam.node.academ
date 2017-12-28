@@ -6,8 +6,8 @@
   "scripts": {
     "server": "node task2.server.js",
     "client": "node task2.client.js",
-    "eslint-fix": ".\\node_modules\\.bin\\eslint task2.server.js task2.client.js ./lib/listeners/index.js --fix",
-    "eslint": ".\\node_modules\\.bin\\eslint task2.server.js task2.client.js ./lib/listeners/index.js",
+    "eslint-fix": ".\\node_modules\\.bin\\eslint task2.server.js task2.client.js ./lib/**/*.js --fix",
+    "eslint": ".\\node_modules\\.bin\\eslint task2.server.js task2.client.js ./lib/**/*.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,6 +23,7 @@
   "dependencies": {
     "colors": "^1.1.2",
     "mocha": "^4.0.1",
+    "readline-sync": "^1.4.7",
     "winston": "^2.4.0"
   },
   "directories": {
