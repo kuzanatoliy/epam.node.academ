@@ -7,7 +7,7 @@ process.stdin.resume();
 process.stdin.setEncoding('utf8');
 
 process.stdin.on('data', data => {
-  data = data.substring(0, data.length -2);
+  data = data.substring(0, data.length - 2);
   commands.make(data);
 });
 
@@ -45,7 +45,7 @@ const server = net.createServer(socket => {
     }
   }).once('data', data => {
     clientName = data.toString();
-    if ( listeners.add(clientName, socket)) {
+    if (listeners.add(clientName, socket)) {
       socket.on('data', data => {
         listeners.send(clientName, data.toString());
       }).on('end', () => {
