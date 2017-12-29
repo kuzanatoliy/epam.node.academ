@@ -1,0 +1,9 @@
+{"level":"info","message":"bugaga","timestamp":"2017-12-29T09:25:13.787Z"}
+{"level":"info","message":"\u001b[33mbugaga\u001b[39m","timestamp":"2017-12-29T09:32:48.835Z"}
+{"level":"info","message":"\u001b[33mbugaga\u001b[39m","timestamp":"2017-12-29T09:34:40.034Z"}
+{"level":"info","message":"\u001b[34mAdd listener User1514536568945\u001b[39m","timestamp":"2017-12-29T09:34:53.313Z"}
+{"level":"info","message":"\u001b[34mAdd listener lub\u001b[39m","timestamp":"2017-12-29T09:35:06.579Z"}
+{"level":"info","message":"\u001b[33mListener lub send message\u001b[39m","timestamp":"2017-12-29T09:35:15.300Z"}
+{"level":"info","message":"\u001b[33mListener User1514536568945 send message\u001b[39m","timestamp":"2017-12-29T09:35:29.878Z"}
+{"level":"info","message":"\u001b[31mRemove listener User1514536568945\u001b[39m","timestamp":"2017-12-29T09:35:43.357Z"}
+{"level":"info","message":"\u001b[31mRemove listener lub\u001b[39m","timestamp":"2017-12-29T09:36:00.253Z"}
