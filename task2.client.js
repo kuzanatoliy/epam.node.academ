@@ -109,7 +109,7 @@ socket.on('connect', () => {
         break;
       case 'ECONNRESET': 
         message.showErrorMessage('Server is not answered');
-        connection 
+        connection = false;
         break;
       default:
         console.log(err);
