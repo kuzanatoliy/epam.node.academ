@@ -1,0 +1,5 @@
+{
+  "database": "sudoku",
+  "username": "root",
+  "password": "MYSQL"
+}
