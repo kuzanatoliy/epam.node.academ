@@ -4,7 +4,9 @@
   "description": "EPAM node academ",
   "main": "task1.js",
   "scripts": {
-    "eslint": ".\\node_modules\\.bin\\eslint --init",
+    "start": "node task3.js",
+    "eslint-fix": ".\\node_modules\\.bin\\eslint task3.js ./lib/**/*.js --fix",
+    "eslint": ".\\node_modules\\.bin\\eslint task3.js ./lib/**/*.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,7 +22,10 @@
   "dependencies": {
     "colors": "^1.1.2",
     "mocha": "^4.0.1",
-    "simple-terminal-menu": "^1.1.3"
+    "mysql2": "^1.5.1",
+    "sequelize": "^4.28.7",
+    "simple-terminal-menu": "^1.1.3",
+    "url-pattern": "^1.0.3"
   },
   "directories": {
     "lib": "lib"
