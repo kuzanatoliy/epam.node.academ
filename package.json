@@ -5,8 +5,8 @@
   "main": "task1.js",
   "scripts": {
     "start": "node task3.js",
-    "eslint-fix": ".\\node_modules\\.bin\\eslint task3.js ./lib/**/*.js --fix",
-    "eslint": ".\\node_modules\\.bin\\eslint task3.js ./lib/**/*.js",
+    "eslint-fix": ".\\node_modules\\.bin\\eslint task3.js ./db/**/*.js ./server/**/*.js --fix",
+    "eslint": ".\\node_modules\\.bin\\eslint task3.js ./db/**/*.js ./server/**/*.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
