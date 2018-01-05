@@ -7,34 +7,44 @@ server.use('/', (req, res) => {
   res.end();
 });
 
-server.use('/sudoku', (req, res) => {
-  maps.getAll().then(json => {
-    jsonRes(res, json);
-  }).catch(err => error(err, res));
+server.use('/sudoku', async (req, res) => {
+  try {
+    jsonRes(res, await maps.getAll());
+  } catch (err) {
+    error(res, err);
+  }
 });
 
-server.get('/sudoku/:id', (req, res, data) => {
-  maps.getOne(data.url.id).then(json => {
-    jsonRes(res, json);
-  }).catch(err => error(err, res));
+server.get('/sudoku/:id', async (req, res, data) => {
+  try {
+    jsonRes(res, await maps.getOne(data.url.id));
+  } catch (err) {
+    error(res, err);
+  }
 });
 
-server.del('/sudoku/:id', (req, res, data) => {
-  maps.remove(data.post.id).then(json => {
-    jsonRes(res, json);
-  }).catch(err => error(err, res));
+server.del('/sudoku/:id', async (req, res, data) => {
+  try {
+    jsonRes(res, await maps.remove(data.url.id));
+  } catch (err) {
+    error(res, err);
+  }
 });
 
-server.put('/sudoku/:id', (req, res, data) => {
-  maps.create({ value: data.post.value }, data.post.id).then(json => {
-    jsonRes(res, json);
-  }).catch(err => error(err, res));
+server.put('/sudoku/:id', async (req, res, data) => {
+  try {
+    jsonRes(res, await maps.create({ value: data.post.value }, data.post.id));
+  } catch (err) {
+    error(res, err);
+  }
 });
 
-server.post('/sudoku/:id', (req, res, data) => {
-  maps.update({ value: data.post.value }, data.url.id).then(json => {
-    jsonRes(res, json);
-  }).catch(err => error(err, res));
+server.post('/sudoku/:id', async (req, res, data) => {
+  try {
+    jsonRes(res, await maps.update({ value: data.post.value }, data.url.id));
+  } catch (err) {
+    error(res, err);
+  }
 });
 
 const jsonRes = (res, json) => {
