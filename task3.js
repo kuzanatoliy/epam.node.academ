@@ -1,4 +1,4 @@
-const server = require('./lib/server');
+const server = require('./server');
 const maps = require('./db/models/maps');
 
 server.use('/', (req, res) => {
