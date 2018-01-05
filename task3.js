@@ -1,8 +1,5 @@
 const server = require('./lib/server');
-const dataWorker = require('./lib/sudoku-data-worker');
-
-const configs = require('./configs/database.json');
-const maps = dataWorker.create(configs);
+const maps = require('./db/models/maps');
 
 server.use('/', (req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/plain' });

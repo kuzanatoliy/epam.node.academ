@@ -1,5 +1,6 @@
 {
   "database": "sudoku",
   "username": "root",
-  "password": "MYSQL"
+  "password": "MYSQL",
+  "dialect": "mysql"
 }
