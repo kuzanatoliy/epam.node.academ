@@ -26,6 +26,20 @@ const params = {
   }
 };
 
+const SHORT_ATTRIBUTES = { attributes: ['id', 'value', 'type'] };
+
+const ATTRIBUTES = { attributes: [
+  'id',
+  'value',
+  'type',
+  [Sequelize.fn('POW', connection.col('type'), 2), 'poligonCount'],
+  [Sequelize.fn('POW', connection.col('type'), 4), 'count']]
+};
+
 const Maps = connection.define('maps', params);
 
-module.exports = Maps;
+module.exports = {
+  Maps,
+  SHORT_ATTRIBUTES,
+  ATTRIBUTES
+};

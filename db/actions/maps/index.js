@@ -1,6 +1,4 @@
-const Maps = require('../../models/maps');
-
-const attributes = ['id', 'value', 'type'];
+const { Maps, ATTRIBUTES, SHORT_ATTRIBUTES } = require('../../models/maps');
 
 const errorCreator = (err, request) => {
   if (err) {
@@ -11,17 +9,17 @@ const errorCreator = (err, request) => {
   throw err;
 };
 
-const parseItem = item => ({ id: item.id, map: item.value.split(','), type: item.type });
+const parseItem = item => ({ ...item.dataValues, value: item.value.split(',') });
 
 const parseItems = items => items.map(item => parseItem(item));
 
 const parseValue = values => values.join(',');
 
-const getAll = () => Maps.findAll({ attributes })
+const getAll = () => Maps.findAll(SHORT_ATTRIBUTES)
   .then(maps => parseItems(maps))
   .catch(err => errorCreator(err, 'getAll'));
 
-const getOne = id => Maps.findById(id, { attributes })
+const getOne = id => Maps.findById(id, ATTRIBUTES)
   .then(map => parseItem(map))
   .catch(err => errorCreator(err, 'getOne'));
 
