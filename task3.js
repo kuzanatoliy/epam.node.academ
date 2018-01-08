@@ -1,63 +1,61 @@
 const server = require('./server');
-const maps = require('./db/models/maps');
+const maps = require('./db/actions/maps');
+const Res = require('./lib/utils/respons');
 
 server.use('/', (req, res) => {
-  res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.write('Hello world');
-  res.end();
+  Res.textRes(res, 'Hello world');
 });
 
 server.use('/sudoku', async (req, res) => {
   try {
-    jsonRes(res, await maps.getAll());
+    Res.jsonRes(res, await maps.getAll());
   } catch (err) {
-    error(res, err);
+    error(err, res);
   }
 });
 
 server.get('/sudoku/:id', async (req, res, data) => {
   try {
-    jsonRes(res, await maps.getOne(data.url.id));
+    Res.jsonRes(res, await maps.getOne(data.url.id));
   } catch (err) {
-    error(res, err);
+    error(err, res);
   }
 });
 
 server.del('/sudoku/:id', async (req, res, data) => {
   try {
-    jsonRes(res, await maps.remove(data.url.id));
+    Res.jsonRes(res, await maps.remove(data.url.id));
   } catch (err) {
-    error(res, err);
-  }
-});
-
-server.put('/sudoku/:id', async (req, res, data) => {
-  try {
-    jsonRes(res, await maps.create({ value: data.post.value }, data.post.id));
-  } catch (err) {
-    error(res, err);
+    error(err, res);
   }
 });
 
 server.post('/sudoku/:id', async (req, res, data) => {
   try {
-    jsonRes(res, await maps.update({ value: data.post.value }, data.url.id));
+    Res.jsonRes(res, await maps.create({ value: data.post.value }, data.post.id));
   } catch (err) {
-    error(res, err);
+    error(err, res);
   }
 });
 
-const jsonRes = (res, json) => {
-  res.writeHead(200, { 'Content-Type': 'application/json' });
-  res.write(JSON.stringify(json));
-  res.end();
-};
+server.put('/sudoku/:id', async (req, res, data) => {
+  try {
+    Res.jsonRes(res, await maps.update({ value: data.post.value }, data.post.id));
+  } catch (err) {
+    error(err, res);
+  }
+});
 
 const error = (err, res) => {
   if (err) {
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
-    res.write('Error');
-    res.end();
+    switch (err.code) {
+      case 'DATA':
+        Res.badRequestError(res);
+        break;
+      default:
+        Res.internalError(res);
+        break;
+    }
   }
 };
 

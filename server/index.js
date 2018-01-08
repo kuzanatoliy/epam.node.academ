@@ -2,6 +2,7 @@ const http = require('http');
 const url = require('url');
 const UrlPattern = require('url-pattern');
 const querystring = require('querystring');
+const Res = require('../lib/utils/respons');
 
 const routers = {
   GET: [],
@@ -10,17 +11,27 @@ const routers = {
   DELETE: []
 };
 
+const getRouter = (method, data) => {
+  let key = method;
+  if (key === 'POST') {
+    const { id, value } = data.post;
+    if (id && !value) {
+      key = 'DELETE';
+    } else if (id && value) {
+      key = 'PUT';
+    }
+  }
+  return routers[key];
+};
+
 const defaultAction = (req, res) => {
-  res.writeHead(404, { 'Content-Type': 'text/plain' });
-  res.write('Error: 404 - Page not found!');
-  res.end();
+  Res.notFoundError(res);
 };
 
 const routing = (req, res) => {
   let data = {};
   let postData = '';
 
-  const router = routers[req.method];
   const pathname = url.parse(req.url).pathname;
 
   req.setEncoding('utf8');
@@ -30,6 +41,7 @@ const routing = (req, res) => {
   });
 
   req.on('end', () => {
+    const router = getRouter(req.method, data);
     postData && (data.post = querystring.parse(postData));
     let i = 0;
     let action;
