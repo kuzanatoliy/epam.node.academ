@@ -6,7 +6,7 @@ server.use('/', (req, res) => {
   Res.textRes(res, 'Hello world');
 });
 
-server.use('/sudoku', async (req, res) => {
+server.get('/sudoku', async (req, res) => {
   try {
     Res.jsonRes(res, await maps.getAll());
   } catch (err) {
@@ -30,9 +30,9 @@ server.del('/sudoku/:id', async (req, res, data) => {
   }
 });
 
-server.post('/sudoku/:id', async (req, res, data) => {
+server.post('/sudoku', async (req, res, data) => {
   try {
-    Res.jsonRes(res, await maps.create({ value: data.post.value }, data.post.id));
+    Res.jsonRes(res, await maps.create({ value: data.post.value }));
   } catch (err) {
     error(err, res);
   }

@@ -28,7 +28,7 @@ const getOne = id => Maps.findById(id, { attributes })
 const update = (data, id) => Maps.update({ value: parseValue(data.value) }, { where: { id } })
   .catch(err => errorCreator(err, 'update'));
 
-const create = (data, id) => Maps.create({ value: parseValue(data.value), id: data.id })
+const create = data => Maps.create({ value: parseValue(data.value) })
   .catch(err => errorCreator(err, 'create'));
 
 const remove = id => Maps.destroy({ id })
